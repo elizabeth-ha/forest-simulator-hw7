@@ -32,6 +32,7 @@ function makeForest() {
 function printForest(arr) {
   intro.classList.add('hidden');
   sim.classList.remove('hidden');
+
   if (sim.contains(document.getElementById("forestTable"))) {
     reprintForest(arr);
   } else {
@@ -54,20 +55,10 @@ function reprintForest() {
   var table = document.getElementById("forestTable");
   var tr = table.childNodes;
 
-  // for (var i = 0; i < tr.length; i++) {
-  //   var td = tr.childNodes;
-  //   for (var j = 0; j < td.length; j++) {
-  //     if (!td[j].classList.contains("save")) {
-  //       td[j].innerHTML = arr[Math.floor(Math.random()*arr.length)];
-  //     }
-  //   }
-  // }
-  console.log("ARR: "+forestEmojis);
   var td = document.getElementsByTagName("td");
   for (var i = 0; i < td.length; i++) {
     if (!td[i].classList.contains("save")) {
       td[i].innerHTML = forestEmojis[Math.floor(Math.random()*forestEmojis.length)];
-      // td[i].innerHTML = "?";
     }
   }
 }
@@ -80,13 +71,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var btn = document.getElementsByTagName('button');
 
-  function test() {
+  function generate() {
     makeInput();
     var forest = makeForest(forestEmojis);
     printForest(forest);
     console.log(forest);
   }
-  btn[0].addEventListener("click", test, false);
+  btn[0].addEventListener("click", generate, false);
+  btn[0].classList.add("show");
 
   document.addEventListener('click', function (event) {
 
