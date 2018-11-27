@@ -1,16 +1,26 @@
 
-var forestEmojis = ["🐛", "🌱", "🌲", "🌳", "🍀", "🍎", "🍄", "🦊", "🐑", "🐹", "🐰"];
+var forestEmojis = ["", "", "", "", "", "", "", "", "", "🐛", "🌱", "🌲", "🌳", "🍀", "🍎", "🍄", "🦊", "🐑", "🐹", "🐰"];
 
-var intro = document.getElementById('intro');
-var sim = document.getElementById('sim');
-var pushtray = document.getElementById('pushtray');
+function makeInput() {
+  var input = document.getElementById("inputForest").value.trim();
+  var inputEmojis = forestEmojis;
+  console.log("input: "+input.length);
+  if (input.length != 0) {
+    inputEmojis = input.split("");
+    for (var i = 0; i < inputEmojis.length / 2; i++) {
+      inputEmojis.push("");
+    }
+  }
+  console.log(inputEmojis);
+  return inputEmojis;
+}
 
 function makeForest(arr) {
   var forest = []
   for (var i = 0; i < 8; i++) {
-    var line = "";
+    var line = [];
     for (var j = 0; j < 8; j++) {
-      line += arr[Math.floor(Math.random()*arr.length)] + " ";
+      line.push(arr[Math.floor(Math.random()*arr.length)]);
     }
     forest.push(line);
   }
@@ -18,15 +28,43 @@ function makeForest(arr) {
 }
 
 function printForest(arr) {
-  intro.toggleClass('hidden');
-  sim.toggleClass('hidden');
-  sim.innerHTML = arr;
+  intro.classList.add('hidden');
+  sim.classList.remove('hidden');
+  if (sim.hasChildNodes()) {
+
+  }
+  var table = document.createElement('table');
+  for (var i = 0; i < arr.length; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 0; j < arr[i].length; j++) {
+      var td = document.createElement('td');
+      td.innerHTML = arr[i][j];
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+  sim.appendChild(table);
+}
+
+function reprintForest(arr) {
+  var table = sim.firstChild;
+  var tr = table.childNodes;
+  for (var i = 0; i < tr.length; i++) {
+    var td = tr.childNodes;
+    for (var j = 0; j < td.length; j++) {
+      
+    }
+  }
 }
 document.addEventListener("DOMContentLoaded", function(event) {
+  var intro = document.getElementById('intro');
+  var sim = document.getElementById('sim');
+  var pushtray = document.getElementById('pushtray');
+
   var btn = document.getElementsByTagName('button');
 
   function test() {
-    var forest = makeForest(forestEmojis);
+    var forest = makeForest(makeInput());
     printForest(forest);
     console.log(forest);
   }
